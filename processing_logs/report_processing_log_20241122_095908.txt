@@ -1,0 +1,38 @@
+==================================================
+MEDICAL REPORT PROCESSING LOG
+==================================================
+
+INPUT FILE DETAILS:
+File Name: Serum Biomarker(Chromogranin-A) (2).pdf
+Processing Time: 2024-11-22 09:59:08
+Total Processing Time: 7.65 seconds
+
+CLASSIFICATION DETAILS:
+Detected Report Type: Serum_Analysis
+Confidence Score: 0.5
+Keywords Identified:
+- Tumours
+- tumour marker
+- serum
+- neuroendocrine tumours
+- chromogranin A
+
+ENHANCEMENT DETAILS:
+Serum Biomarkers:
+{
+  "Date": "2020-09-24",
+  "Test": "Bio Markers",
+  "Hospital": "Institute of Liver & Biliary Sciences",
+  "Hospital Location": "New Delhi, India",
+  "Parameters": [
+    {
+      "Bio Marker": "Chromogranin-A",
+      "Value": 54.0,
+      "Units": "ng/ml"
+    }
+  ]
+}
+
+==================================================
+END OF LOG
+==================================================

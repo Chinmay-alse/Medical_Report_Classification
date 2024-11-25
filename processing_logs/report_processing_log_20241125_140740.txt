@@ -1,0 +1,123 @@
+==================================================
+MEDICAL REPORT PROCESSING LOG
+==================================================
+
+INPUT FILE DETAILS:
+File Name: Haematology - CBC 24-8-22.pdf
+Processing Time: 2024-11-25 14:07:40
+Total Processing Time: 14.85 seconds
+
+CLASSIFICATION DETAILS:
+Detected Report Type: CBC
+Confidence Score: 0.5
+Keywords Identified:
+- Haemoglobin
+- RBC Count
+- WBC Count
+- Platelet Count
+- Differential Count
+- MCV
+- MCH
+- MCHC
+- Leukocytes
+- Lymphocytes
+- Neutrophils
+- Monocytes
+- Eosinophils
+- Basophils
+- Packed Cell Volume
+- Haematocrit
+
+ENHANCEMENT DETAILS:
+raw_text: ```json
+{
+    "test": "Complete Blood Count (CBC)",
+    "hospital_lab_name": "NH Health City",
+    "hospital_lab_location": "Hosur Road",
+    "Patient Name": "NA",
+    "parameters": [
+        {
+            "parameter": "Hemoglobin",
+            "sub_parameter": "NA",
+            "value": 14.2,
+            "units": "gm/dl"
+        },
+        {
+            "parameter": "Total WBC/leukocyte count",
+            "sub_parameter": "NA",
+            "value": 5600,
+            "units": "/cumm"
+        },
+        {
+            "parameter": "Platelet count",
+            "sub_parameter": "NA",
+            "value": 213000,
+            "units": "/cumm"
+        },
+        {
+            "parameter": "Total RBC count",
+            "sub_parameter": "NA",
+            "value": 4.89,
+            "units": "millions/cmm"
+        },
+        {
+            "parameter": "WBC/Leukocyte differential count",
+            "sub_parameter": "Neutrophils",
+            "value": 47,
+            "units": "%"
+        },
+        {
+            "parameter": "WBC/Leukocyte differential count",
+            "sub_parameter": "Lymphocytes",
+            "value": 48,
+            "units": "%"
+        },
+        {
+            "parameter": "WBC/Leukocyte differential count",
+            "sub_parameter": "Monocytes",
+            "value": 3,
+            "units": "%"
+        },
+        {
+            "parameter": "WBC/Leukocyte differential count",
+            "sub_parameter": "Eosinophils",
+            "value": 1,
+            "units": "%"
+        },
+        {
+            "parameter": "WBC/Leukocyte differential count",
+            "sub_parameter": "Basophils",
+            "value": 1,
+            "units": "%"
+        },
+        {
+            "parameter": "RBC indices",
+            "sub_parameter": "MCV",
+            "value": 87.1,
+            "units": "fl"
+        },
+        {
+            "parameter": "RBC indices",
+            "sub_parameter": "MCH",
+            "value": 29.9,
+            "units": "pg"
+        },
+        {
+            "parameter": "RBC indices",
+            "sub_parameter": "MCHC",
+            "value": 33.3,
+            "units": "g/dl"
+        },
+        {
+            "parameter": "RBC indices",
+            "sub_parameter": "RDW",
+            "value": 15.1,
+            "units": "%"
+        }
+    ]
+}
+```
+
+==================================================
+END OF LOG
+==================================================

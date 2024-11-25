@@ -1,0 +1,20 @@
+{
+    "Serum Biomarkers": {
+        "Date": "2020-10-21",
+        "Test": "Bio Markers",
+        "Hospital": "Unknown",
+        "Hospital Location": "Unknown",
+        "Parameters": [
+            {
+                "Bio Marker": "CA 15.3",
+                "Value": 27.5,
+                "Units": "U/mL"
+            },
+            {
+                "Bio Marker": "CEA",
+                "Value": 0.86,
+                "Units": "ng/mL"
+            }
+        ]
+    }
+}

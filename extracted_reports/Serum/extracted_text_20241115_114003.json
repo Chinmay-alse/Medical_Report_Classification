@@ -1,0 +1,30 @@
+{
+    "Serum Biomarkers": {
+        "Date": "2019-04-19",
+        "Test": "Bio Markers",
+        "Hospital": "Thyrocare",
+        "Hospital Location": "Mumbai-400703",
+        "Parameters": [
+            {
+                "Bio Marker": "CA15-3/CA27.29",
+                "Value": 12.6,
+                "Units": "U/ml"
+            },
+            {
+                "Bio Marker": "CA19-9",
+                "Value": 2.0,
+                "Units": "U/ml"
+            },
+            {
+                "Bio Marker": "CA125",
+                "Value": 6.2,
+                "Units": "U/ml"
+            },
+            {
+                "Bio Marker": "CEA",
+                "Value": 1.5,
+                "Units": "ng/ml"
+            }
+        ]
+    }
+}

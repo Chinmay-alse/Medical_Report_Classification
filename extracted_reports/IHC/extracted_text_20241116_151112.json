@@ -1,0 +1,109 @@
+{
+    "report_type": "IMMUNOHISTOCHEMISTRY",
+    "PatientDetails": {
+        "Name": "Mrs. USHA PUROHIT",
+        "PathNo": "21W-10087",
+        "Age": 63,
+        "Gender": "Female",
+        "ReferredBy": "Dr. R. K. Deshpande",
+        "AccessionedOn": "2021-10-08T11:42:00",
+        "ReportedOn": "2021-10-12T11:42:00"
+    },
+    "specimen_details": {
+        "specimen_type": "",
+        "specimen_site": "",
+        "procedure": ""
+    },
+    "markers_tested": [
+        {
+            "marker_name": "CK 7",
+            "result": "positive",
+            "interpretation": "",
+            "intensity": "",
+            "proportion_score": "",
+            "pattern": ""
+        },
+        {
+            "marker_name": "CK 19",
+            "result": "positive",
+            "interpretation": "",
+            "intensity": "",
+            "proportion_score": "",
+            "pattern": ""
+        },
+        {
+            "marker_name": "CK 20",
+            "result": "negative",
+            "interpretation": "",
+            "intensity": "",
+            "proportion_score": "",
+            "pattern": ""
+        },
+        {
+            "marker_name": "CA 19.9",
+            "result": "negative",
+            "interpretation": "",
+            "intensity": "",
+            "proportion_score": "",
+            "pattern": ""
+        },
+        {
+            "marker_name": "HSA",
+            "result": "negative",
+            "interpretation": "",
+            "intensity": "",
+            "proportion_score": "",
+            "pattern": ""
+        },
+        {
+            "marker_name": "arginase",
+            "result": "negative",
+            "interpretation": "",
+            "intensity": "",
+            "proportion_score": "",
+            "pattern": ""
+        },
+        {
+            "marker_name": "synaptophysin",
+            "result": "negative",
+            "interpretation": "",
+            "intensity": "",
+            "proportion_score": "",
+            "pattern": ""
+        }
+    ],
+    "key_markers": {
+        "ER": {
+            "result": "",
+            "intensity": "",
+            "proportion": "",
+            "allred_score": ""
+        },
+        "PR": {
+            "result": "",
+            "intensity": "",
+            "proportion": "",
+            "allred_score": ""
+        },
+        "HER2": {
+            "result": "",
+            "intensity": "",
+            "pattern": ""
+        },
+        "Ki67": {
+            "result": "",
+            "proliferation_index": ""
+        }
+    },
+    "additional_markers": [
+        {
+            "name": "",
+            "result": "",
+            "details": ""
+        }
+    ],
+    "interpretation": {
+        "diagnosis": "",
+        "comments": ""
+    }
+}

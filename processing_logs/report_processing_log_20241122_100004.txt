@@ -1,0 +1,40 @@
+==================================================
+MEDICAL REPORT PROCESSING LOG
+==================================================
+
+INPUT FILE DETAILS:
+File Name: Serum Biomarker(HE4).pdf
+Processing Time: 2024-11-22 10:00:04
+Total Processing Time: 8.53 seconds
+
+CLASSIFICATION DETAILS:
+Detected Report Type: Serum_Analysis
+Confidence Score: 0.5
+Keywords Identified:
+- HE4
+- CA 125
+- Ovarian malignancy
+- Cancer
+
+ENHANCEMENT DETAILS:
+raw_text: ```json
+{
+    "Serum Biomarkers": {
+        "Date": "2020-09-14",
+        "Test": "Bio Markers",
+        "Hospital": "NORTH EAST HEALTHCARE PVT LTD",
+        "Hospital Location": "GURGAON",
+        "Parameters": [
+            {
+                "Bio Marker": "HE4 (HUMAN EPIDIDYMIS PROTEIN 4)",
+                "Value": 130,
+                "Units": "pmol/L"
+            }
+        ]
+    }
+}
+```
+
+==================================================
+END OF LOG
+==================================================

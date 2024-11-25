@@ -1,0 +1,15 @@
+{
+    "Serum Biomarkers": {
+        "Date": "2020-01-10",
+        "Test": "Bio Markers",
+        "Hospital": "Dr. Goyal's Path Lab & Imaging Centre",
+        "Hospital Location": "Jaipur",
+        "Parameters": [
+            {
+                "Bio Marker": "TOTAL PSA",
+                "Value": 19.200,
+                "Units": "ng/ml"
+            }
+        ]
+    }
+}

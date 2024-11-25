@@ -1,0 +1,44 @@
+==================================================
+MEDICAL REPORT PROCESSING LOG
+==================================================
+
+INPUT FILE DETAILS:
+File Name: Serum Biomarker(Beta-hCG).pdf
+Processing Time: 2024-11-22 09:56:03
+Total Processing Time: 10.44 seconds
+
+CLASSIFICATION DETAILS:
+Detected Report Type: Serum_Analysis
+Confidence Score: 0.5
+Keywords Identified:
+- Beta- Human Chorionic Gonodotropin
+- CA125
+- Carcino Embryonic Antigen (CEA)
+
+ENHANCEMENT DETAILS:
+raw_text: ```json
+{
+    "Serum Biomarkers": {
+        "Date": "2017-09-24",
+        "Test": "Bio Markers",
+        "Hospital": "Aruna Scan & Diagnostics",
+        "Hospital Location": "Hyderabad",
+        "Parameters": [
+            {
+                "Bio Marker": "CA125",
+                "Value": 50.0,
+                "Units": "U/ml"
+            },
+            {
+                "Bio Marker": "CEA",
+                "Value": 1.76,
+                "Units": "ng/ml"
+            }
+        ]
+    }
+}
+```
+
+==================================================
+END OF LOG
+==================================================

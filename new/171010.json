@@ -1,0 +1,92 @@
+{
+    "test": "Complete Blood Count (CBC)",
+    "hospital_lab_name": "Kalpana Pathlab",
+    "hospital_lab_location": "R.M.R.S. M. B. Govt. Hospital, Udaipur",
+    "Patient Name": "Mrs. SUMAN SEN",
+    "parameters": [
+        {
+            "parameter": "Hemoglobin",
+            "sub_parameter": "NA",
+            "value": 11.6,
+            "units": "g/dl"
+        },
+        {
+            "parameter": "Total WBC/leukocyte count",
+            "sub_parameter": "NA",
+            "value": 7.2,
+            "units": "x10^3/ul"
+        },
+        {
+            "parameter": "Platelet count",
+            "sub_parameter": "NA",
+            "value": 294,
+            "units": "x10^3/ul"
+        },
+        {
+            "parameter": "Hematocrit/PCV",
+            "sub_parameter": "NA",
+            "value": 36.2,
+            "units": "%"
+        },
+        {
+            "parameter": "Total RBC count",
+            "sub_parameter": "NA",
+            "value": 4.21,
+            "units": "millions/cmm"
+        },
+        {
+            "parameter": "WBC/Leukocyte differential count",
+            "sub_parameter": "Neutrophils",
+            "value": 53.0,
+            "units": "%"
+        },
+        {
+            "parameter": "RBC indices",
+            "sub_parameter": "MCV",
+            "value": 86.0,
+            "units": "fl"
+        },
+        {
+            "parameter": "WBC/Leukocyte differential count",
+            "sub_parameter": "Lymphocyte",
+            "value": 41.0,
+            "units": "%"
+        },
+        {
+            "parameter": "WBC/Leukocyte differential count",
+            "sub_parameter": "Eosinophil",
+            "value": 1.0,
+            "units": "%"
+        },
+        {
+            "parameter": "WBC/Leukocyte differential count",
+            "sub_parameter": "Monocyte",
+            "value": 5.0,
+            "units": "%"
+        },
+        {
+            "parameter": "WBC/Leukocyte differential count",
+            "sub_parameter": "Basophil",
+            "value": 0,
+            "units": "%"
+        },
+        {
+            "parameter": "RBC indices",
+            "sub_parameter": "MCH",
+            "value": 27.6,
+            "units": "pg"
+        },
+        {
+            "parameter": "RBC indices",
+            "sub_parameter": "MCHC",
+            "value": 32.0,
+            "units": "g/dl"
+        },
+        {
+            "parameter": "RBC indices",
+            "sub_parameter": "RDW",
+            "value": 18.6,
+            "units": "%"
+        }
+    ]
+}

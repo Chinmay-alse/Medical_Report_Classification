@@ -1,0 +1,100 @@
+{
+    "report_type": "IMMUNOHISTOCHEMISTRY",
+    "specimen_details": {
+        "specimen_type": "Biopsy",
+        "specimen_site": "Gall bladder",
+        "procedure": "Paraffin block"
+    },
+    "markers_tested": [
+        {
+            "marker_name": "CK 7",
+            "result": "positive",
+            "interpretation": "",
+            "intensity": "",
+            "proportion_score": "",
+            "pattern": ""
+        },
+        {
+            "marker_name": "CK 19",
+            "result": "positive",
+            "interpretation": "",
+            "intensity": "",
+            "proportion_score": "",
+            "pattern": ""
+        },
+        {
+            "marker_name": "CK 20",
+            "result": "negative",
+            "interpretation": "",
+            "intensity": "",
+            "proportion_score": "",
+            "pattern": ""
+        },
+        {
+            "marker_name": "CA 19.9",
+            "result": "negative",
+            "interpretation": "",
+            "intensity": "",
+            "proportion_score": "",
+            "pattern": ""
+        },
+        {
+            "marker_name": "HSA",
+            "result": "negative",
+            "interpretation": "",
+            "intensity": "",
+            "proportion_score": "",
+            "pattern": ""
+        },
+        {
+            "marker_name": "arginase",
+            "result": "negative",
+            "interpretation": "",
+            "intensity": "",
+            "proportion_score": "",
+            "pattern": ""
+        },
+        {
+            "marker_name": "synaptophysin",
+            "result": "negative",
+            "interpretation": "",
+            "intensity": "",
+            "proportion_score": "",
+            "pattern": ""
+        }
+    ],
+    "key_markers": {
+        "ER": {
+            "result": "",
+            "intensity": "",
+            "proportion": "",
+            "allred_score": ""
+        },
+        "PR": {
+            "result": "",
+            "intensity": "",
+            "proportion": "",
+            "allred_score": ""
+        },
+        "HER2": {
+            "result": "",
+            "intensity": "",
+            "pattern": ""
+        },
+        "Ki67": {
+            "result": "",
+            "proliferation_index": ""
+        }
+    },
+    "additional_markers": [
+        {
+            "name": "",
+            "result": "",
+            "details": ""
+        }
+    ],
+    "interpretation": {
+        "diagnosis": "Metastatic poorly differentiated carcinoma in a desmoplastic and inflamed stroma",
+        "comments": "The tumor cells are large, polygonal and seen in irregular nests, cords & few glands. There is a mixed inflammation."
+    }
+}

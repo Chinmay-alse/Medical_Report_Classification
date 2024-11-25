@@ -1,0 +1,37 @@
+==================================================
+MEDICAL REPORT PROCESSING LOG
+==================================================
+
+INPUT FILE DETAILS:
+File Name: Serum Biomarker(PSA) (1).pdf
+Processing Time: 2024-11-22 11:01:53
+Total Processing Time: 8.55 seconds
+
+CLASSIFICATION DETAILS:
+Detected Report Type: Serum_Analysis
+Confidence Score: 0.5
+Keywords Identified:
+- Prostate Specific Antigen (PSA)
+
+ENHANCEMENT DETAILS:
+raw_text: ```json
+{
+    "Serum Biomarkers": {
+        "Date": "2020-08-19",
+        "Test": "Bio Markers",
+        "Hospital": "Dr Goyal's Path Lab & Imaging Centre",
+        "Hospital Location": "Jaipur",
+        "Parameters": [
+            {
+                "Bio Marker": "TOTAL PSA",
+                "Value": 33.300,
+                "Units": "ng/ml"
+            }
+        ]
+    }
+}
+```
+
+==================================================
+END OF LOG
+==================================================

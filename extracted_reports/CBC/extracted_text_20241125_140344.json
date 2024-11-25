@@ -1,0 +1,99 @@
+{
+  "original_extraction": {
+    "test": "Complete Blood Count (CBC)",
+    "hospital_lab_name": "Millennium Special Lab Pvt. Ltd.",
+    "hospital_lab_location": "Thane",
+    "Patient Name": "NA",
+    "parameters": [
+      {
+        "parameter": "Hemoglobin",
+        "sub_parameter": "NA",
+        "value": 9.7,
+        "units": "gms/dL"
+      },
+      {
+        "parameter": "Total WBC/leukocyte count",
+        "sub_parameter": "NA",
+        "value": 9950,
+        "units": "/\u03bcL"
+      },
+      {
+        "parameter": "Platelet count",
+        "sub_parameter": "NA",
+        "value": 220000,
+        "units": "/\u03bcL"
+      },
+      {
+        "parameter": "Hematocrit/PCV",
+        "sub_parameter": "NA",
+        "value": 29.7,
+        "units": "%"
+      },
+      {
+        "parameter": "Total RBC count",
+        "sub_parameter": "NA",
+        "value": 2.93,
+        "units": "10^6 / \u03bcL"
+      },
+      {
+        "parameter": "WBC/Leukocyte differential count",
+        "sub_parameter": "Neutrophils",
+        "value": 74.3,
+        "units": "%"
+      },
+      {
+        "parameter": "RBC indices",
+        "sub_parameter": "MCV",
+        "value": 101.37,
+        "units": "fL"
+      },
+      {
+        "parameter": "WBC/Leukocyte differential count",
+        "sub_parameter": "Lymphocyte",
+        "value": 15.3,
+        "units": "%"
+      },
+      {
+        "parameter": "WBC/Leukocyte differential count",
+        "sub_parameter": "Eosinophil",
+        "value": 1.6,
+        "units": "%"
+      },
+      {
+        "parameter": "WBC/Leukocyte differential count",
+        "sub_parameter": "Monocyte",
+        "value": 8.3,
+        "units": "%"
+      },
+      {
+        "parameter": "WBC/Leukocyte differential count",
+        "sub_parameter": "Basophil",
+        "value": 0.5,
+        "units": "%"
+      },
+      {
+        "parameter": "RBC indices",
+        "sub_parameter": "MCH",
+        "value": 33.11,
+        "units": "pg"
+      },
+      {
+        "parameter": "RBC indices",
+        "sub_parameter": "MCHC",
+        "value": 32.66,
+        "units": "g/dL"
+      },
+      {
+        "parameter": "RBC indices",
+        "sub_parameter": "RDW",
+        "value": 17.6,
+        "units": "%"
+      }
+    ]
+  },
+  "verification_result": {
+    "verification_status": "error",
+    "error": "Failed to parse verification result",
+    "raw_response": "### Verification Process:\n\n#### 1. Erythrocyte Count:\n- **Value visible in image:** 2.93\n- **Value in enhanced text:** 2.93\n- **Match status:** EXACT MATCH\n- **Correction needed:** No\n- **Correct value:** 2.93\n\n#### 2. Hemoglobin:\n- **Value visible in image:** 9.7\n- **Value in enhanced text:** 9.7\n- **Match status:** EXACT MATCH\n- **Correction needed:** No\n- **Correct value:** 9.7\n\n#### 3. Total Leucocyte Count:\n- **Value visible in image:** 9950\n- **Value in enhanced text:** 9950\n- **Match status:** EXACT MATCH\n- **Correction needed:** No\n- **Correct value:** 9950\n\n#### 4. Platelet Count:\n- **Value visible in image:** 220000\n- **Value in enhanced text:** 220000\n- **Match status:** EXACT MATCH\n- **Correction needed:** No\n- **Correct value:** 220000\n\n#### 5. Packed Cell Volume HCT:\n- **Value visible in image:** 29.7\n- **Value in enhanced text:** 29.7\n- **Match status:** EXACT MATCH\n- **Correction needed:** No\n- **Correct value:** 29.7\n\n#### 6. Mean Cell Volume (MCV):\n- **Value visible in image:** 101.37\n- **Value in enhanced text:** 101.37\n- **Match status:** EXACT MATCH\n- **Correction needed:** No\n- **Correct value:** 101.37\n\n#### 7. Mean Cell Hemoglobin (MCH):\n- **Value visible in image:** 33.11\n- **Value in enhanced text:** 33.11\n- **Match status:** EXACT MATCH\n- **Correction needed:** No\n- **Correct value:** 33.11\n\n#### 8. Mean Cell Hb Conc (MCHC):\n- **Value visible in image:** 32.66\n- **Value in enhanced text:** 32.66\n- **Match status:** EXACT MATCH\n- **Correction needed:** No\n- **Correct value:** 32.66\n\n#### 9. Mean Platelet Volume:\n- **Value visible in image:** 10.9\n- **Value in enhanced text:** 10.9\n- **Match status:** EXACT MATCH\n- **Correction needed:** No\n- **Correct value:** 10.9\n\n#### 10. RDW:\n- **Value visible in image:** 17.6\n- **Value in enhanced text:** 17.6\n- **Match status:** EXACT MATCH\n- **Correction needed:** No\n- **Correct value:** 17.6\n\n#### 11. Neutrophils (Differential Count):\n- **Value visible in image:** 74.3\n- **Value in enhanced text:** 74.3\n- **Match status:** EXACT MATCH\n- **Correction needed:** No\n- **Correct value:** 74.3\n\n#### 12. Eosinophils (Differential Count):\n- **Value visible in image:** 1.6\n- **Value in enhanced text:** 1.6\n- **Match status:** EXACT MATCH\n- **Correction needed:** No\n- **Correct value:** 1.6\n\n#### 13. Lymphocytes (Differential Count):\n- **Value visible in image:** 15.3\n- **Value in enhanced text:** 15.3\n- **Match status:** EXACT MATCH\n- **Correction needed:** No\n- **Correct value:** 15.3\n\n#### 14. Monocytes (Differential Count):\n- **Value visible in image:** 8.3\n- **Value in enhanced text:** 8.3\n- **Match status:** EXACT MATCH\n- **Correction needed:** No\n- **Correct value:** 8.3\n\n#### 15. Basophils (Differential Count):\n- **Value visible in image:** 0.5\n- **Value in enhanced text:** 0.5\n- **Match status:** EXACT MATCH\n- **Correction needed:** No\n- **Correct value:** 0.5\n\n#### 16. Neutrophils (Absolute Count):\n- **Value visible in image:** 7.39\n- **Value in enhanced text:** 7.39\n- **Match status:** EXACT MATCH\n- **Correction needed:** No\n- **Correct value:** 7.39\n\n#### 17. Lymphocytes (Absolute Count):\n- **Value visible in image:** 1.52\n- **Value in enhanced text:** 1.52\n- **Match status:** EXACT MATCH\n- **Correction needed:** No\n- **Correct value:** 1.52\n\n#### 18. Eosinophils (Absolute"
+  }
+}

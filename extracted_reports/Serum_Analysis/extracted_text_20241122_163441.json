@@ -1,0 +1,164 @@
+{
+    "Serum Biomarkers": {
+        "Date": "2019-04-19",
+        "Test": "Bio Markers",
+        "Hospital": "Thyrocare",
+        "Hospital Location": "Mumbai",
+        "Parameters": [
+            {
+                "Bio Marker": "CA125",
+                "Value": 6.2,
+                "Units": "U/ml"
+            },
+            {
+                "Bio Marker": "CEA",
+                "Value": 1.5,
+                "Units": "ng/ml"
+            },
+            {
+                "Bio Marker": "CA15-3/CA27.29",
+                "Value": 12.6,
+                "Units": "U/ml"
+            },
+            {
+                "Bio Marker": "Chromogranin A",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "Calcitonin",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "PSA",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "IgG4 Subclass",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "HCV IgG",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "CRP",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "5-HIAA",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "Adrenocorticotropic Hormone (ACTH)",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "AFP",
+                "Value": 2.54,
+                "Units": "ng/ml"
+            },
+            {
+                "Bio Marker": "B2M",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "Beta hCG",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "CA549",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "Cathepsin D",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "Des-gamma-carboxy prothrombin (DCP)",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "Gastrin",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "HE4",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "Homovanillic Acid (HVA)",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "Immunoglobulins",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "Lactate Dehydrogenase (LDH)",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "Neuron Specific Enolase (NSE)",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "Parathyroid hormone-like Protein (PLP)",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "Placental Alkaline Phosphatase (PLAP)",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "Prolactin",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "Prostatic Acid Phosphatase (PAP)",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "Thyroglobulin",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "Serum CRP",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "Tissue Polypeptide Antigen (TPA)",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "Vanillylmandelic Acid (VMA)",
+                "Value": "NA",
+                "Units": "NA"
+            },
+            {
+                "Bio Marker": "CA

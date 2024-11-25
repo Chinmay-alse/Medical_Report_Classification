@@ -1,0 +1,15 @@
+{
+    "Serum Biomarkers": {
+        "Date": "2019-07-02",
+        "Test": "Bio Markers",
+        "Hospital": "GEM Hospital",
+        "Hospital Location": "45, Pankaja Mill Road, Manathapuram, Coimbatore",
+        "Parameters": [
+            {
+                "Bio Marker": "CEA (Carcino Embryonic Antigen)",
+                "Value": 50.0,
+                "Units": "ng/ml"
+            }
+        ]
+    }
+}

@@ -1,0 +1,37 @@
+==================================================
+MEDICAL REPORT PROCESSING LOG
+==================================================
+
+INPUT FILE DETAILS:
+File Name: Serum Biomarker(CEA)(4).pdf
+Processing Time: 2024-11-22 09:57:38
+Total Processing Time: 8.60 seconds
+
+CLASSIFICATION DETAILS:
+Detected Report Type: Serum_Analysis
+Confidence Score: 0.5
+Keywords Identified:
+- Carcinoembryonic Antigen (CEA)
+
+ENHANCEMENT DETAILS:
+raw_text: ```json
+{
+    "Serum Biomarkers": {
+        "Date": "2019-07-02",
+        "Test": "Bio Markers",
+        "Hospital": "GEM Hospital",
+        "Hospital Location": "Pankaja Mill Road, Manathapuram, Coimbatore",
+        "Parameters": [
+            {
+                "Bio Marker": "CEA",
+                "Value": 50.0,
+                "Units": "ng/ml"
+            }
+        ]
+    }
+}
+```
+
+==================================================
+END OF LOG
+==================================================

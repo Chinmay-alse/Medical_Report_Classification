@@ -1,0 +1,43 @@
+==================================================
+MEDICAL REPORT PROCESSING LOG
+==================================================
+
+INPUT FILE DETAILS:
+File Name: Serum Biomarker(CA15.3,CEA).pdf
+Processing Time: 2024-11-22 09:56:45
+Total Processing Time: 11.09 seconds
+
+CLASSIFICATION DETAILS:
+Detected Report Type: Serum_Analysis
+Confidence Score: 0.5
+Keywords Identified:
+- CA 15-3
+- Carcinoembryonic Antigen (CEA)
+
+ENHANCEMENT DETAILS:
+raw_text: ```json
+{
+    "Serum Biomarkers": {
+        "Date": "2020-10-22",
+        "Test": "Bio Markers",
+        "Hospital": "Thyrocare",
+        "Hospital Location": "NA",
+        "Parameters": [
+            {
+                "Bio Marker": "CA15-3/CA27.29",
+                "Value": 27.5,
+                "Units": "U/ml"
+            },
+            {
+                "Bio Marker": "CEA",
+                "Value": 0.86,
+                "Units": "ng/ml"
+            }
+        ]
+    }
+}
+```
+
+==================================================
+END OF LOG
+==================================================

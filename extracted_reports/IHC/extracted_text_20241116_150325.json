@@ -1,0 +1,63 @@
+{
+    "SurgicalPathologyReport": {
+        "PatientDetails": {
+            "Name": "Mrs. USHA PUROHIT",
+            "PathNo": "21W-10087",
+            "Age": 63,
+            "Gender": "Female",
+            "ReferredBy": "Dr. R. K. Deshpande",
+            "AccessionedOn": "2021-10-08T11:42:00",
+            "ReportedOn": "2021-10-12T11:42:00"
+        },
+        "ClinicalData": {
+            "Diagnosis": "Moderately differentiated adenocarcinoma of the gall bladder with breast metastasis"
+        },
+        "GrossAppearance": {
+            "NumberOfContainers": 4,
+            "GrossedBy": "Dr. Renan Gardars",
+            "Containers": {
+                "Container1": {
+                    "Description": "Received a single linear core and two tiny bits of tissue",
+                    "Measurements": "0.2 to 0.3 cm",
+                    "SubmittedInOneParaffinBlock": true
+                },
+                "Container2": {
+                    "Description": "Received two linear cores and a single tiny bit of tissue",
+                    "Measurements": "0.1 to 0.3 cm",
+                    "SubmittedInOneParaffinBlock": true
+                },
+                "Container3": {
+                    "Description": "Received three linear cores of tissue",
+                    "Measurements": "0.2 to 0.3 cm",
+                    "SubmittedInOneParaffinBlock": true
+                },
+                "Container4": {
+                    "Description": "Received a single linear core and a single tiny bit of tissue",
+                    "Measurements": "0.1 to 0.7 cm",
+                    "SubmittedInOneParaffinBlock": true
+                }
+            }
+        },
+        "MicroscopicAppearance": {
+            "Description": "The biopsy reveals 3 metastatic poorly differentiated carcinoma in a desmoplastic and inflamed stroma. The tumor cells are large, polygonal and seen in irregular nests, cords, and few glands. There is a mixed inflammation.",
+            "Immunohistochemistry": {
+                "ParaffinBlockNumber": 2,
+                "TumorCells": {
+                    "CK7": "Positive",
+                    "CK19": "Positive",
+                    "CK20": "Negative",
+                    "CA19.9": "Negative",
+                    "HSA": "Negative",
+                    "Arginase": "Negative",
+                    "Synaptophysin": "Negative"
+                }
+            }
+        },
+        "SignOff": [
+            "Dr. Anita Borges",
+            "Dr. Vinita Pant",
+            "Dr. Shilpa Prabhudesai",
+            "Dr. Jay Mehta"
+        ]
+    }
+}

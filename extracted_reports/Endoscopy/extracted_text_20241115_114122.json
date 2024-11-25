@@ -1,0 +1,12 @@
+{
+    "Imaging Tests": {
+        "Test": "Endoscopy",
+        "Date": "2018-09-17",
+        "Hospital": {
+            "Name": "Dr. SATYAPRAKASH'S Centre for Digestive and Liver Diseases",
+            "Location": "9229, 1th Cross, MC. Layout, Vapanager, Bangalore 560040"
+        },
+        "Impression": "Normal study with no abnormalities detected.",
+        "Imaging Comment": "Patient presented for a post-operative colon cancer examination. All sections of the colon appeared normal with no polyps, ulcers, tumors, or strictures observed."
+    }
+}

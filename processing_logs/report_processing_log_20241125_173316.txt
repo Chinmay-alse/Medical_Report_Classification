@@ -1,0 +1,133 @@
+==================================================
+MEDICAL REPORT PROCESSING LOG
+==================================================
+
+INPUT FILE DETAILS:
+File Name: Clinical_BiochemistryLFTElectrolytesThyroid_profileOthersHIVHBVHCV.pdf
+Processing Time: 2024-11-25 17:33:16
+Total Processing Time: 35.34 seconds
+
+CLASSIFICATION DETAILS:
+Detected Report Type: CLINICAL_BIOCHEMISTRY
+Confidence Score: 0.5
+Keywords Identified:
+- Liver Function Test
+- Kidney Function Test
+- Thyroid Profile
+- Blood Sugar
+- Electrolytes
+- glucose
+- creatinine
+
+ENHANCEMENT DETAILS:
+raw_text: ```json
+{
+    "Clinical Biochemistry": {
+        "Date": "2018-04-18",
+        "Hospital": "Unknown",
+        "Hospital Location": "Unknown",
+        "patient name": "T NAGARANI",
+        "Tests": [
+            {
+                "Test": "Liver function test",
+                "Parameters": [
+                    {
+                        "Parameter": "AST",
+                        "Value": 15,
+                        "Units": "U/L"
+                    },
+                    {
+                        "Parameter": "ALT",
+                        "Value": 17,
+                        "Units": "U/L"
+                    },
+                    {
+                        "Parameter": "Gamma-glutamyl Transferase",
+                        "Value": 16,
+                        "Units": "U/L"
+                    },
+                    {
+                        "Parameter": "Total bilirubin",
+                        "Value": 0.24,
+                        "Units": "mg/dL"
+                    },
+                    {
+                        "Parameter": "Direct bilirubin",
+                        "Value": 0.10,
+                        "Units": "mg/dL"
+                    },
+                    {
+                        "Parameter": "Alkaline phosphatase",
+                        "Value": 96,
+                        "Units": "U/L"
+                    },
+                    {
+                        "Parameter": "Serum total protein",
+                        "Value": 7.2,
+                        "Units": "g/dL"
+                    },
+                    {
+                        "Parameter": "Albumin",
+                        "Value": 4.1,
+                        "Units": "g/dL"
+                    },
+                    {
+                        "Parameter": "Globulin",
+                        "Value": 3.1,
+                        "Units": "g/dL"
+                    },
+                    {
+                        "Parameter": "Albumin/Globulin Ratio",
+                        "Value": 1.3,
+                        "Units": "Ratio"
+                    }
+                ]
+            },
+            {
+                "Test": "Electrolytes",
+                "Parameters": [
+                    {
+                        "Parameter": "Sodium",
+                        "Value": 141,
+                        "Units": "mmol/L"
+                    }
+                ]
+            },
+            {
+                "Test": "Viral markers",
+                "Parameters": [
+                    {
+                        "Parameter": "Hepatitis C Antibodies",
+                        "Value": "Non Reactive",
+                        "Units": "NA"
+                    },
+                    {
+                        "Parameter": "HIV 4th Gen Assay (P24AG + HIV AB)",
+                        "Value": "Non Reactive",
+                        "Units": "NA"
+                    },
+                    {
+                        "Parameter": "Hepatitis B Surface Antigen",
+                        "Value": "Non Reactive",
+                        "Units": "NA"
+                    }
+                ]
+            },
+            {
+                "Test": "Thyroid profile",
+                "Parameters": [
+                    {
+                        "Parameter": "TSH 3rd Generation",
+                        "Value": 3.010,
+                        "Units": "µIU/mL"
+                    }
+                ]
+            }
+        ]
+    }
+}
+```
+
+==================================================
+END OF LOG
+==================================================

@@ -1,0 +1,260 @@
+Extract all Clinical Biochemistry parameters and their properties from this report and present it as a JSON List as per the following template: 
+
+{
+    "Clinical Biochemistry": {
+        "Date": "2018-04-18",
+        "Hospital": "Unknown",
+        "Hospital Location": "Unknown",
+        "patient name":"unknown",
+        "Tests": [
+            {
+                "Test": "Electrolytes",
+                "Parameters": [
+                    {
+                        "Parameter": "Sodium",
+                        "Value": 138,
+                        "Units": "mmol/L"
+                    },
+                    {
+                        "Parameter": "Potassium",
+                        "Value": 4.2,
+                        "Units": "mmol/L"
+                    },
+                    {
+                        "Parameter": "Chloride",
+                        "Value": 102,
+                        "Units": "mmol/L"
+                    }
+                ]
+            },
+            {
+                "Test": "Glucose tolerance",
+                "Parameters": [
+                    {
+                        "Parameter": "Fasting blood sugar",
+                        "Value": 90,
+                        "Units": "mg/dL"
+                    },
+                    {
+                        "Parameter": "HbA1c",
+                        "Value": 155,
+                        "Units": "mg/dL"
+                    },
+                    {
+                        "Parameter": "post pranadial blood sugar",
+                        "Value": 120,
+                        "Units": "mg/dL"
+                    },
+                    {
+                        "Parameter": "Random blood sugar",
+                        "Value": 120,
+                        "Units": "mg/dL"
+                    }
+                ]
+            },
+            {
+                "Test": "Lipid profile",
+                "Parameters": [
+                    {
+                        "Parameter": "Total Cholesterol",
+                        "Value": 190,
+                        "Units": "mg/dL"
+                    },
+                    {
+                        "Parameter": "HDL",
+                        "Value": 50,
+                        "Units": "mg/dL"
+                    },
+                    {
+                        "Parameter": "LDL",
+                        "Value": 120,
+                        "Units": "mg/dL"
+                    },
+                    {
+                        "Parameter": "Triglycerides",
+                        "Value": 130,
+                        "Units": "mg/dL"
+                    },
+                    {
+                        "Parameter": "VLDL",
+                        "Value": 130,
+                        "Units": "mg/dL"
+                    }
+                ]
+            },
+            {
+                "Test": "Liver function test",
+                "Parameters": [
+                    {
+                        "Parameter": "ALT",
+                        "Value": 35,
+                        "Units": "U/L"
+                    },
+                    {
+                        "Parameter": "AST",
+                        "Value": 30,
+                        "Units": "U/L"
+                    },
+                    {
+                        "Parameter": "Bilirubin",
+                        "Value": 0.8,
+                        "Units": "mg/dL"
+                    },
+                    {
+                        "Parameter": "Albumin",
+                        "Value": 4.5,
+                        "Units": "g/dL"
+                    },
+                    {
+                        "Parameter": "Alkaline phosphatase",
+                        "Value": 120,
+                        "Units": "U/L"
+                    },
+                    {
+                        "Parameter": "Direct bilirubin",
+                        "Value": 0.2,
+                        "Units": "mg/dL"
+                    },
+                    {
+                        "Parameter": "Globulin",
+                        "Value": 3.1,
+                        "Units": "g/dL"
+                    },
+                    {
+                        "Parameter": "Indirect bilirubin",
+                        "Value": 0.6,
+                        "Units": "mg/dL"
+                    },
+                    {
+                        "Parameter": "Serum total protein",
+                        "Value": 7.3,
+                        "Units": "g/dL"
+                    },
+                    {
+                        "Parameter": "Gamma-glutamyl Transferase",
+                        "Value": 30,
+                        "Units": "U/L"
+                    },
+                    {
+                        "Parameter": "Total bilirubin",
+                        "Value": 0.8,
+                        "Units": "mg/dL"
+                    }
+                ]
+            },
+            {
+                "Test": "Renal function test",
+                "Parameters": [
+                    {
+                        "Parameter": "Creatinine",
+                        "Value": 1.1,
+                        "Units": "mg/dL"
+                    },
+                    {
+                        "Parameter": "Urea",
+                        "Value": 25,
+                        "Units": "mg/dL"
+                    },
+                    {
+                        "Parameter": "BUN",
+                        "Value": 12,
+                        "Units": "mg/dL"
+                    },
+                    {
+                        "Parameter": "Blood urea nitrogen",
+                        "Value": 15,
+                        "Units": "mg/dL"
+                    },
+                    {
+                        "Parameter": "Creatinine clearance",
+                        "Value": 110,
+                        "Units": "mL/min"
+                    },
+                    {
+                        "Parameter": "eGFR",
+                        "Value": 90,
+                        "Units": "mL/min/1.73m²"
+                    },
+                    {
+                        "Parameter": "Serum creatinine",
+                        "Value": 1.2,
+                        "Units": "mg/dL"
+                    },
+                    {
+                        "Parameter": "Uric acid",
+                        "Value": 5.8,
+                        "Units": "mg/dL"
+                    }
+                ]
+            },
+            {
+                "Test": "Thyroid profile",
+                "Parameters": [
+                    {
+                        "Parameter": "T3",
+                        "Value": 0.84,
+                        "Units": "NA"
+                    },
+                    {
+                        "Parameter": "T4",
+                        "Value": 7.66,
+                        "Units": "NA"
+                    },
+                    {
+                        "Parameter": "TSH",
+                        "Value": 1.04,
+                        "Units": "NA"
+                    }
+                ]
+            },
+            {
+                "Test": "Tumor lysis syndrome",
+                "Parameters": [
+                    {
+                        "Parameter": "CRP",
+                        "Value": 5.2,
+                        "Units": "mg/dL"
+                    },
+                    {
+                        "Parameter": "LDH",
+                        "Value": 180,
+                        "Units": "U/L"
+                    },
+                    {
+                        "Parameter": "Uric Acid",
+                        "Value": 5.5,
+                        "Units": "mg/dL"
+                    }
+                ]
+            },
+            {
+                "Test": "Viral markers",
+                "Parameters": [
+                    {
+                        "Parameter": "CMV",
+                        "Value": "Negative",
+                        "Units": "NA"
+                    },
+                    {
+                        "Parameter": "Hepatitis B antigen",
+                        "Value": "Negative",
+                        "Units": "NA"
+                    },
+                    {
+                        "Parameter": "Hepatitis C",
+                        "Value": "Negative",
+                        "Units": "NA"
+                    },
+                    {
+                        "Parameter": "HIV",
+                        "Value": "Negative",
+                        "Units": "NA"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+
+Ignore all other information apart from that of parameters, in the document and do not write out such information in your response.

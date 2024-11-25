@@ -1,0 +1,14 @@
+[
+    {
+        "Imaging Tests": {
+            "Test": "Endoscopy",
+            "Date": "2021-05-04",
+            "Hospital": {
+                "Name": "Fortis Hospital",
+                "Location": "Bannerghatta Road"
+            },
+            "Impression": "Identified abnormality requiring further investigation.",
+            "Imaging Comment": "Patient presented with specific symptoms. Notable findings include mucosal irregularities and a suspected issue located 10-12 cm from the rectum verge. A biopsy was taken for further analysis."
+        }
+    }
+]

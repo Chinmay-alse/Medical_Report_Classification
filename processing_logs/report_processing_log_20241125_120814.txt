@@ -1,0 +1,63 @@
+==================================================
+MEDICAL REPORT PROCESSING LOG
+==================================================
+
+INPUT FILE DETAILS:
+File Name: serum biomarkers.pdf
+Processing Time: 2024-11-25 12:08:14
+Total Processing Time: 26.15 seconds
+
+CLASSIFICATION DETAILS:
+Detected Report Type: Serum_Analysis
+Confidence Score: 0.5
+Keywords Identified:
+- Carcinoembryonic Antigen (CEA)
+- Alpha-Fetoprotein (AFP)
+- CA 15-3
+- CA 19-9
+- CA 125
+- Cancer Markers
+- Tumor Screening
+
+ENHANCEMENT DETAILS:
+raw_text: ```json
+{
+    "Serum Biomarkers": {
+        "Date": "2019-04-19",
+        "Test": "Bio Markers",
+        "Hospital": "Thyrocare",
+        "Hospital Location": "Mumbai-400 703",
+        "Parameters": [
+            {
+                "Bio Marker": "CA125",
+                "Value": 6.2,
+                "Units": "U/ml"
+            },
+            {
+                "Bio Marker": "CEA",
+                "Value": 1.5,
+                "Units": "ng/ml"
+            },
+            {
+                "Bio Marker": "CA15-3/CA27.29",
+                "Value": 12.6,
+                "Units": "U/ml"
+            },
+            {
+                "Bio Marker": "AFP",
+                "Value": 2.54,
+                "Units": "ng/ml"
+            },
+            {
+                "Bio Marker": "TSH",
+                "Value": 1.26,
+                "Units": "µIU/ml"
+            }
+        ]
+    }
+}
+```
+
+==================================================
+END OF LOG
+==================================================

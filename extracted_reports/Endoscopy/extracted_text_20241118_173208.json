@@ -1,0 +1,12 @@
+{
+    "Imaging Tests": {
+        "Test": "Endoscopy",
+        "Date": "2020-11-23",
+        "Hospital": {
+            "Name": "Dr. SatyaPrakash's Centre for Digestive and Liver Diseases",
+            "Location": "Bangalore"
+        },
+        "Impression": "Identified abnormality requiring further investigation.",
+        "Imaging Comment": "Patient presented with specific symptoms. Notable findings include diminutive polyps in the rectum, uncomplicated colonic diverticuli, and grade 2 internal hemorrhoids. A biopsy was taken and is awaited for further analysis."
+    }
+}

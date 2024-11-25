@@ -1,0 +1,12 @@
+{
+    "Imaging Tests": {
+        "Test": "Endoscopy",
+        "Date": "2020-11-23",
+        "Hospital": {
+            "Name": "Dr. SA TYAPRAKASH'S Centre for Digestive and Liver Diseases",
+            "Location": "14th Cross, BEC Layout, Bangalore - 560 040"
+        },
+        "Impression": "DIMUNITIVE POLYPS IN THE RECTUM(s/p removal using biopsy forceps). FEW UNCOMPLICATED COLONIC DIVERTICULI. GRADE 2 INTERNAL HEMORRHOIDS.",
+        "Imaging Comment": "Normal vascular pattern in the Rectum, Sigmoid colon, Transverse Colon, Ascending Colon & Cecum, and Terminal Ileum. Hemorrhoids present and diminutive polyps noted in the Rectum removed using biopsy forceps and sent for HPE. Remark: Biopsy awaited."
+    }
+}

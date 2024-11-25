@@ -1,0 +1,92 @@
+{
+    "test": "Complete Blood Count (CBC)",
+    "hospital_lab_name": "Suburban Diagnostics",
+    "hospital_lab_location": "Goregaon East, Mahadev Diagnostics Center",
+    "Patient Name": "NA",
+    "parameters": [
+        {
+            "parameter": "Haemoglobin",
+            "sub_parameter": "NA",
+            "value": 11.8,
+            "units": "g/dl"
+        },
+        {
+            "parameter": "Total WBC count",
+            "sub_parameter": "NA",
+            "value": 6270,
+            "units": "/cmm"
+        },
+        {
+            "parameter": "Platelet count",
+            "sub_parameter": "NA",
+            "value": 265000,
+            "units": "/cmm"
+        },
+        {
+            "parameter": "Hematocrit/PCV",
+            "sub_parameter": "NA",
+            "value": 35.5,
+            "units": "%"
+        },
+        {
+            "parameter": "Total RBC count",
+            "sub_parameter": "NA",
+            "value": 4.13,
+            "units": "millions/cmm"
+        },
+        {
+            "parameter": "WBC differential count",
+            "sub_parameter": "Neutrophils",
+            "value": 49.0,
+            "units": "%"
+        },
+        {
+            "parameter": "RBC indices",
+            "sub_parameter": "MCV",
+            "value": 85.5,
+            "units": "fl"
+        },
+        {
+            "parameter": "WBC differential count",
+            "sub_parameter": "Lymphocytes",
+            "value": 26.2,
+            "units": "%"
+        },
+        {
+            "parameter": "WBC differential count",
+            "sub_parameter": "Eosinophils",
+            "value": 3.0,
+            "units": "%"
+        },
+        {
+            "parameter": "WBC differential count",
+            "sub_parameter": "Monocytes",
+            "value": 4.9,
+            "units": "%"
+        },
+        {
+            "parameter": "WBC differential count",
+            "sub_parameter": "Basophils",
+            "value": 0.1,
+            "units": "%"
+        },
+        {
+            "parameter": "RBC indices",
+            "sub_parameter": "MCH",
+            "value": 33.5,
+            "units": "pg"
+        },
+        {
+            "parameter": "RBC indices",
+            "sub_parameter": "MCHC",
+            "value": 39.1,
+            "units": "g/dl"
+        },
+        {
+            "parameter": "RBC indices",
+            "sub_parameter": "RDW",
+            "value": 14.7,
+            "units": "%"
+        }
+    ]
+}
