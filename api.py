@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import os
 import json
-from werkzeug.utils import secure_filename
+from werkzeug.utils import secure_filename # Add this import
 from test_identification import process_pdf
 
 app = Flask(__name__)
@@ -19,6 +19,13 @@ if not os.path.exists(UPLOAD_FOLDER):
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+# Add a helper function to clean filenames
+def clean_filename(filename):
+    # Remove special characters and replace spaces with underscores
+    cleaned = secure_filename(filename)
+    # Convert to lowercase for consistency
+    return cleaned.lower()
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -37,8 +44,8 @@ def upload_file():
         if not allowed_file(file.filename):
             return jsonify({'error': 'File type not allowed'}), 400
         
-        # Secure the filename and save the file
-        filename = secure_filename(file.filename)
+        # Clean and secure the filename
+        filename = clean_filename(file.filename)
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
         
@@ -47,6 +54,7 @@ def upload_file():
         
         return jsonify({
             'message': 'File uploaded and processed successfully',
+            'filename': filename,
             'result': result
         }), 200
         
@@ -58,20 +66,34 @@ def get_report(report_identifier):
     try:
         # Check if the identifier is a PDF file
         if report_identifier.lower().endswith('.pdf'):
+            # Clean and standardize the filename
+            base_filename = os.path.splitext(report_identifier)[0]
+            base_filename = clean_filename(base_filename)
+            
+            print(f"Looking for report with base filename: {base_filename}")
+            
             # Search for the corresponding JSON file in all report type folders
             for report_type in os.listdir('extracted_reports'):
                 report_type_path = os.path.join('extracted_reports', report_type)
+                print(f"Searching in directory: {report_type_path}")
+                
                 if os.path.isdir(report_type_path):
                     for filename in os.listdir(report_type_path):
-                        if filename.endswith('.json'):
-                            with open(os.path.join(report_type_path, filename), 'r') as f:
+                        print(f"Checking file: {filename}")
+                        
+                        # Convert both filenames to lowercase for comparison
+                        if filename.endswith('.json') and base_filename in filename.lower():
+                            json_path = os.path.join(report_type_path, filename)
+                            print(f"Found matching file: {json_path}")
+                            
+                            with open(json_path, 'r') as f:
                                 try:
-                                    # Parse the JSON data
                                     report_data = json.loads(f.read())
                                     
-                                    # Create a structured response
                                     structured_report = {
-                                        'filename': filename,
+                                        'original_filename': report_identifier,
+                                        'processed_filename': filename,
+                                        'report_type': report_type,
                                         'test_type': report_data.get('test', ''),
                                         'hospital_info': {
                                             'name': report_data.get('hospital_lab_name', ''),
@@ -81,7 +103,6 @@ def get_report(report_identifier):
                                         'parameters': {}
                                     }
                                     
-                                    # Organize parameters by category
                                     if 'parameters' in report_data:
                                         for param in report_data['parameters']:
                                             category = param['parameter']
@@ -97,10 +118,14 @@ def get_report(report_identifier):
                                     
                                     return jsonify(structured_report), 200
                                     
-                                except json.JSONDecodeError:
+                                except json.JSONDecodeError as e:
+                                    print(f"Error parsing JSON: {e}")
                                     continue
             
-            return jsonify({'error': 'Report not found'}), 404
+            return jsonify({
+                'error': f'No processed report found for {report_identifier}',
+                'searched_filename': base_filename
+            }), 404
             
         else:
             # Handle report type request (existing functionality)
@@ -150,6 +175,29 @@ def get_report(report_identifier):
                 'reports': reports
             }), 200
             
+    except Exception as e:
+        print(f"Error in get_report: {e}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/available-reports', methods=['GET'])
+def list_available_reports():
+    try:
+        available_reports = []
+        for report_type in os.listdir('extracted_reports'):
+            report_type_path = os.path.join('extracted_reports', report_type)
+            if os.path.isdir(report_type_path):
+                for filename in os.listdir(report_type_path):
+                    if filename.endswith('.json'):
+                        available_reports.append({
+                            'report_type': report_type,
+                            'filename': filename
+                        })
+        
+        return jsonify({
+            'total_reports': len(available_reports),
+            'reports': available_reports
+        }), 200
+        
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 

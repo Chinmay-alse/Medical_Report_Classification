@@ -9,6 +9,7 @@ import re
 from openai import AzureOpenAI
 import time
 import cv2
+from werkzeug.utils import secure_filename
 from PIL import Image, ImageEnhance, ImageFilter, ImageOps
 import numpy as np
 
@@ -236,7 +237,7 @@ def enhance_text_with_groq(extracted_text, report_type, image_paths=None):
         print(f"Error in API call: {e}")
         return None
 
-def save_text_to_json(extracted_text, report_type):
+def save_text_to_json(extracted_text, report_type, original_filename):
     if not extracted_text:
         print("No text to save")
         return
@@ -246,9 +247,13 @@ def save_text_to_json(extracted_text, report_type):
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
     
-    # Create a unique filename using the current timestamp
+    # Clean and standardize the filename
+    base_filename = os.path.splitext(original_filename)[0]
+    base_filename = secure_filename(base_filename)
+    
+    # Create a unique filename using the original filename and timestamp
     timestamp = time.strftime("%Y%m%d_%H%M%S")
-    filename = os.path.join(folder_path, f"extracted_text_{timestamp}.json")
+    filename = os.path.join(folder_path, f"{base_filename}_{timestamp}.json")
     
     try:
         # Clean the text
@@ -270,7 +275,6 @@ def save_text_to_json(extracted_text, report_type):
         
     except Exception as e:
         print(f"Error saving to file: {e}")
-
         
 def encode_image(image_path):
     with open(image_path, "rb") as image_file:
@@ -575,13 +579,131 @@ def document_report_processing(pdf_path, classification_result, enhanced_text, p
         log_file.write("=" * 50 + "\n")
     
     print(f"Processing log saved to: {log_filename}")
+    
+def enhance_text_with_azure(extracted_text, report_type, image_paths=None):
+    """
+    Enhanced version that uses Azure OpenAI for text enhancement with image support.
+    """
+    missing_params = check_missing_parameters(extracted_text, report_type)
+    
+    if not missing_params:
+        print("No missing parameters detected. Processing without images.")
+        # Process without images
+        system_prompt, user_prompt = generate_prompt(extracted_text, report_type)
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt}
+        ]
+        
+        try:
+            response = client.chat.completions.create(
+                model=deployment_name,  # Use your Azure OpenAI deployment name
+                messages=messages,
+                temperature=0.3,
+                max_tokens=2048,
+                top_p=0.95,
+                response_format={"type": "json_object"}
+            )
+            
+            enhanced_text = response.choices[0].message.content
+            print("\nReceived response from Azure OpenAI")
+            return enhanced_text
+            
+        except Exception as e:
+            print(f"Error in API call: {e}")
+            return None
+            
+    else:
+        print(f"Missing parameters detected: {missing_params}")
+        # Process with images
+        system_prompt, _ = generate_prompt(extracted_text, report_type)
+        
+        # Create detailed prompt for image analysis
+        image_analysis_prompt = f"""
+        Analyze the medical report and images to extract the following missing parameters: {', '.join(missing_params)}.
+        
+        Current extracted text:
+        {extracted_text}
+        
+        Instructions:
+        1. Focus on finding exact numerical values for the missing parameters
+        2. Look for values in both the text and images
+        3. Ensure all values include their units
+        4. Return the results in valid JSON format
+        5. Include reference ranges where available
+        6. Verify values against both text and image data
+        
+        Return the complete report data including both existing and newly found parameters.
+        """
+        
+        messages = [
+            {
+                "role": "system",
+                "content": system_prompt
+            }
+        ]
+
+        # Prepare content with images
+        content = [
+            {
+                "type": "text",
+                "text": image_analysis_prompt
+            }
+        ]
+
+        if image_paths:
+            for image_path in image_paths:
+                base64_image = encode_image(image_path)
+                content.append({
+                    "type": "image_url",
+                    "image_url": {
+                        "url": f"data:image/jpeg;base64,{base64_image}",
+                        "detail": "high"
+                    }
+                })
+
+        messages.append({
+            "role": "user",
+            "content": content
+        })
+
+        try:
+            response = client.chat.completions.create(
+                model="gpt-4-vision-preview",  # Use Azure OpenAI vision model
+                messages=messages,
+                temperature=0.3,
+                max_tokens=2048,
+                top_p=0.95,
+                response_format={"type": "json_object"}
+            )
+            
+            enhanced_text = response.choices[0].message.content
+            print("\nReceived response from Azure OpenAI")
+            
+            # Validate JSON format
+            try:
+                json_response = json.loads(enhanced_text)
+                return json.dumps(json_response, indent=2)
+            except json.JSONDecodeError:
+                print("Warning: Response was not in valid JSON format. Returning raw response.")
+                return enhanced_text
+                
+        except Exception as e:
+            print(f"Error in Azure OpenAI API call: {e}")
+            return None
 
 
 def process_pdf(pdf_path):
     start_time = time.time()
     
+    original_filename = os.path.basename(pdf_path)
+    
     # Convert PDF to images
     image_paths = convert_pdf_to_images(pdf_path)
+    
+    if not image_paths or len(image_paths) == 0:
+        print("Failed to convert PDF to images")
+        return
     
     if not image_paths or len(image_paths) == 0:
         print("Failed to convert PDF to images")
@@ -622,7 +744,7 @@ def process_pdf(pdf_path):
     system_prompt = load_system_prompt(report_type_standardized)
     
     # Enhance the extracted text using Groq with all images
-    enhanced_text = enhance_text_with_groq(
+    enhanced_text = enhance_text_with_azure(
         extracted_text=combined_text,
         report_type=report_type,
         image_paths=image_paths
@@ -630,7 +752,8 @@ def process_pdf(pdf_path):
     
     if enhanced_text:
         # Save the enhanced text under the corresponding report type folder
-        save_text_to_json(enhanced_text, report_type)
+        original_filename = os.path.basename(pdf_path)
+        save_text_to_json(enhanced_text, report_type, original_filename)
         
         # For the processing log, try to parse the JSON but don't fail if it can't
         try:
@@ -653,5 +776,5 @@ def process_pdf(pdf_path):
 
 # Run the processing
 if __name__ == "__main__":
-    pdf_path = "serum biomarkers.pdf"
+    pdf_path = "Haematology - CBC 13-9-24.pdf"
     process_pdf(pdf_path)
