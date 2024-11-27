@@ -12,6 +12,22 @@ import cv2
 from werkzeug.utils import secure_filename
 from PIL import Image, ImageEnhance, ImageFilter, ImageOps
 import numpy as np
+import psycopg2
+from datetime import datetime
+
+def create_db_connection():
+    try:
+        connection = psycopg2.connect(
+            database="your_database_name",
+            user="your_username",
+            password="your_password",
+            host="your_host",
+            port="5432"
+        )
+        return connection
+    except Exception as e:
+        print(f"Error connecting to database: {e}")
+        return None
 
 # Set up Tesseract path and remove image size limit
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
@@ -55,6 +71,61 @@ clinical_biochemistry_keywords = [
     "Clinical Biochemistry", "Liver function test", "Kidney function test", "HbA1c","T3","T4","Triiodothyronine","Thyroxine","TSH","Renal Function Test","Liver function test","Lipid Profile","Glucose tolerance","fasting blood sugar","Sodium", "Potassium", "Chloride", "Fasting blood sugar", "HbA1c", "post pranadial blood sugar", "Random blood sugar", "Total Cholesterol", "HDL", "LDL", "Triglycerides", "VLDL", "ALT", "AST", "Bilirubin", "Albumin", "Alkaline phosphatase", "Direct bilirubin", "Globulin", "Indirect bilirubin", "Serum total protein", "Gamma-glutamyl Transferase", "Total bilirubin", "Creatinine", "Urea", "BUN", "Blood urea nitrogen", "Creatinine clearance", "eGFR", "Serum creatinine", "Uric acid", "T3", "T4", "TSH", "CRP", "LDH", "Uric Acid", "CMV", "Hepatitis B antigen", "Hepatitis C", "HIV"
 ]
 
+import psycopg2
+from psycopg2.extras import Json
+
+def get_db_connection():
+    return psycopg2.connect(
+        dbname="postgres",
+        user="postgres",
+        password="postgres",
+        host="localhost",
+        port="5432"
+    )
+                
+def save_to_database(filename, processed_data, report_type, patient_name=None):
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        
+        insert_query = """
+        INSERT INTO report_results 
+        (filename, processed_data, report_type, patient_name, status)
+        VALUES (%s, %s, %s, %s, %s)
+        RETURNING id;
+        """
+        
+        # Convert processed_data to JSON if it's a string
+        if isinstance(processed_data, str):
+            try:
+                processed_data = json.loads(processed_data)
+            except json.JSONDecodeError:
+                processed_data = {"raw_text": processed_data}
+        
+        cur.execute(insert_query, (
+            filename,
+            Json(processed_data),
+            report_type,
+            patient_name,
+            'completed'
+        ))
+        
+        result_id = cur.fetchone()[0]
+        conn.commit()
+        
+        print(f"Successfully saved to database with ID: {result_id}")
+        
+        cur.close()
+        conn.close()
+        
+        return result_id
+        
+    except Exception as e:
+        print(f"Error saving to database: {e}")
+        if 'conn' in locals():
+            conn.close()
+        return None
+    
 def load_system_prompt(report_type):
     # Path to the system prompts directory
     prompt_file_path = os.path.join("System_prompts", f"{report_type}_prompt.txt")
@@ -615,10 +686,8 @@ def enhance_text_with_azure(extracted_text, report_type, image_paths=None):
             
     else:
         print(f"Missing parameters detected: {missing_params}")
-        # Process with images
         system_prompt, _ = generate_prompt(extracted_text, report_type)
         
-        # Create detailed prompt for image analysis
         image_analysis_prompt = f"""
         Analyze the medical report and images to extract the following missing parameters: {', '.join(missing_params)}.
         
@@ -626,12 +695,14 @@ def enhance_text_with_azure(extracted_text, report_type, image_paths=None):
         {extracted_text}
         
         Instructions:
-        1. Focus on finding exact numerical values for the missing parameters
-        2. Look for values in both the text and images
-        3. Ensure all values include their units
-        4. Return the results in valid JSON format
-        5. Include reference ranges where available
-        6. Verify values against both text and image data
+        1. Focus on finding exact numerical values for the missing parameters including patient name and hospital name and location.
+        2. DO NOT add any parameters not listed in the system_prompt
+        3. Look for values in both the text and images
+        4. Ensure all values include their units
+        5. Return the results in valid JSON format
+        6. Include reference ranges where available
+        7. Verify values against both text and image data
+        8. Maintain same structure as mentioned in the system_prompt
         
         Return the complete report data including both existing and newly found parameters.
         """
@@ -643,7 +714,6 @@ def enhance_text_with_azure(extracted_text, report_type, image_paths=None):
             }
         ]
 
-        # Prepare content with images
         content = [
             {
                 "type": "text",
@@ -652,15 +722,28 @@ def enhance_text_with_azure(extracted_text, report_type, image_paths=None):
         ]
 
         if image_paths:
+            compressed_image_paths = []
             for image_path in image_paths:
-                base64_image = encode_image(image_path)
-                content.append({
-                    "type": "image_url",
-                    "image_url": {
-                        "url": f"data:image/jpeg;base64,{base64_image}",
-                        "detail": "high"
-                    }
-                })
+                compressed_path = compress_image_for_api(image_path)
+                if compressed_path:
+                    compressed_image_paths.append(compressed_path)
+            
+            for compressed_path in compressed_image_paths:
+                try:
+                    base64_image = encode_image(compressed_path)
+                    content.append({
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/jpeg;base64,{base64_image}",
+                            "detail": "high"
+                        }
+                    })
+                except Exception as e:
+                    print(f"Error processing image {compressed_path}: {e}")
+                finally:
+                    # Clean up compressed image
+                    if os.path.exists(compressed_path):
+                        os.remove(compressed_path)
 
         messages.append({
             "role": "user",
@@ -669,7 +752,7 @@ def enhance_text_with_azure(extracted_text, report_type, image_paths=None):
 
         try:
             response = client.chat.completions.create(
-                model="gpt-4-vision-preview",  # Use Azure OpenAI vision model
+                model="gpt-4-vision-preview",
                 messages=messages,
                 temperature=0.3,
                 max_tokens=2048,
@@ -680,7 +763,6 @@ def enhance_text_with_azure(extracted_text, report_type, image_paths=None):
             enhanced_text = response.choices[0].message.content
             print("\nReceived response from Azure OpenAI")
             
-            # Validate JSON format
             try:
                 json_response = json.loads(enhanced_text)
                 return json.dumps(json_response, indent=2)
@@ -691,6 +773,51 @@ def enhance_text_with_azure(extracted_text, report_type, image_paths=None):
         except Exception as e:
             print(f"Error in Azure OpenAI API call: {e}")
             return None
+        
+def compress_image_for_api(image_path, max_size_mb=19):
+    """
+    Compress and resize image to ensure it's under the API size limit
+    """
+    try:
+        # Open the image
+        with Image.open(image_path) as img:
+            # Convert to RGB if necessary
+            if img.mode in ('RGBA', 'P'):
+                img = img.convert('RGB')
+            
+            # Initial quality
+            quality = 95
+            output_path = f"compressed_{os.path.basename(image_path)}"
+            
+            while True:
+                # Save with current quality
+                img.save(output_path, 'JPEG', quality=quality)
+                
+                # Check file size
+                size_mb = os.path.getsize(output_path) / (1024 * 1024)
+                
+                if size_mb <= max_size_mb:
+                    return output_path
+                
+                # Reduce quality if file is still too large
+                quality -= 10
+                
+                # If quality is too low, try resizing
+                if quality < 30:
+                    # Resize image
+                    width, height = img.size
+                    new_width = int(width * 0.8)
+                    new_height = int(height * 0.8)
+                    img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+                    quality = 95  # Reset quality
+                
+                # Prevent infinite loop
+                if quality < 20 and size_mb > max_size_mb:
+                    raise ValueError("Unable to compress image sufficiently")
+                
+    except Exception as e:
+        print(f"Error compressing image: {e}")
+        return None
 
 
 def process_pdf(pdf_path):
@@ -750,29 +877,39 @@ def process_pdf(pdf_path):
         image_paths=image_paths
     )
     
-    if enhanced_text:
-        # Save the enhanced text under the corresponding report type folder
-        original_filename = os.path.basename(pdf_path)
-        save_text_to_json(enhanced_text, report_type, original_filename)
-        
-        # For the processing log, try to parse the JSON but don't fail if it can't
-        try:
-            parsed_json = json.loads(enhanced_text)
-            enhanced_text_for_log = parsed_json
-        except json.JSONDecodeError:
-            enhanced_text_for_log = {"raw_text": enhanced_text}
-        
-        # Document the entire process
-        document_report_processing(
-            pdf_path=pdf_path,
-            classification_result=classification_result,
-            enhanced_text=enhanced_text_for_log,
-            processing_time=time.time() - start_time
-        )
-    else:
-        print("No enhanced text was generated")
-
     return enhanced_text
+
+def get_report_by_id(report_id):
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        
+        cur.execute("""
+            SELECT filename, processed_data, created_at, report_type, patient_name 
+            FROM report_results 
+            WHERE id = %s
+        """, (report_id,))
+        
+        result = cur.fetchone()
+        
+        cur.close()
+        conn.close()
+        
+        if result:
+            return {
+                "filename": result[0],
+                "processed_data": result[1],
+                "created_at": result[2],
+                "report_type": result[3],
+                "patient_name": result[4]
+            }
+        return None
+        
+    except Exception as e:
+        print(f"Error retrieving report: {e}")
+        if 'conn' in locals():
+            conn.close()
+        return None
 
 # Run the processing
 if __name__ == "__main__":

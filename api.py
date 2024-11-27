@@ -2,30 +2,82 @@ from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import os
 import json
-from werkzeug.utils import secure_filename # Add this import
+from werkzeug.utils import secure_filename
 from test_identification import process_pdf
+import psycopg2
+from psycopg2.extras import Json
+from datetime import datetime
 
 app = Flask(__name__)
 CORS(app)
+
+# Database configuration
+DB_CONFIG = {
+    'dbname': 'postgres',
+    'user': 'postgres',
+    'password': 'postgres',
+    'host': 'localhost',
+    'port': '5432'
+}
 
 # Configure upload folder
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'pdf'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# Create uploads folder if it doesn't exist
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
+
+def get_db_connection():
+    return psycopg2.connect(**DB_CONFIG)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-# Add a helper function to clean filenames
 def clean_filename(filename):
-    # Remove special characters and replace spaces with underscores
     cleaned = secure_filename(filename)
-    # Convert to lowercase for consistency
     return cleaned.lower()
+
+def save_to_database(filename, processed_data, report_type, patient_name=None):
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        
+        insert_query = """
+        INSERT INTO report_results 
+        (filename, processed_data, report_type, patient_name, created_at, status)
+        VALUES (%s, %s, %s, %s, %s, %s)
+        RETURNING id;
+        """
+        
+        if isinstance(processed_data, str):
+            try:
+                processed_data = json.loads(processed_data)
+            except json.JSONDecodeError:
+                processed_data = {"raw_text": processed_data}
+        
+        cur.execute(insert_query, (
+            filename,
+            Json(processed_data),
+            report_type,
+            patient_name,
+            datetime.now(),
+            'completed'
+        ))
+        
+        result_id = cur.fetchone()[0]
+        conn.commit()
+        
+        cur.close()
+        conn.close()
+        
+        return result_id
+    
+    except Exception as e:
+        print(f"Error saving to database: {e}")
+        if 'conn' in locals():
+            conn.close()
+        return None
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -52,150 +104,127 @@ def upload_file():
         # Process the PDF
         result = process_pdf(filepath)
         
-        return jsonify({
-            'message': 'File uploaded and processed successfully',
-            'filename': filename,
-            'result': result
-        }), 200
-        
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-@app.route('/<path:report_identifier>', methods=['GET'])
-def get_report(report_identifier):
-    try:
-        # Check if the identifier is a PDF file
-        if report_identifier.lower().endswith('.pdf'):
-            # Clean and standardize the filename
-            base_filename = os.path.splitext(report_identifier)[0]
-            base_filename = clean_filename(base_filename)
-            
-            print(f"Looking for report with base filename: {base_filename}")
-            
-            # Search for the corresponding JSON file in all report type folders
-            for report_type in os.listdir('extracted_reports'):
-                report_type_path = os.path.join('extracted_reports', report_type)
-                print(f"Searching in directory: {report_type_path}")
+        if result:
+            try:
+                # Parse the result
+                result_data = json.loads(result) if isinstance(result, str) else result
+                report_type = result_data.get('test', 'Unknown')
+                patient_name = result_data.get('Patient Name', None)
                 
-                if os.path.isdir(report_type_path):
-                    for filename in os.listdir(report_type_path):
-                        print(f"Checking file: {filename}")
-                        
-                        # Convert both filenames to lowercase for comparison
-                        if filename.endswith('.json') and base_filename in filename.lower():
-                            json_path = os.path.join(report_type_path, filename)
-                            print(f"Found matching file: {json_path}")
-                            
-                            with open(json_path, 'r') as f:
-                                try:
-                                    report_data = json.loads(f.read())
-                                    
-                                    structured_report = {
-                                        'original_filename': report_identifier,
-                                        'processed_filename': filename,
-                                        'report_type': report_type,
-                                        'test_type': report_data.get('test', ''),
-                                        'hospital_info': {
-                                            'name': report_data.get('hospital_lab_name', ''),
-                                            'location': report_data.get('hospital_lab_location', '')
-                                        },
-                                        'patient_name': report_data.get('Patient Name', ''),
-                                        'parameters': {}
-                                    }
-                                    
-                                    if 'parameters' in report_data:
-                                        for param in report_data['parameters']:
-                                            category = param['parameter']
-                                            if category not in structured_report['parameters']:
-                                                structured_report['parameters'][category] = []
-                                            
-                                            param_data = {
-                                                'sub_parameter': param.get('sub_parameter', ''),
-                                                'value': param.get('value', ''),
-                                                'units': param.get('units', '')
-                                            }
-                                            structured_report['parameters'][category].append(param_data)
-                                    
-                                    return jsonify(structured_report), 200
-                                    
-                                except json.JSONDecodeError as e:
-                                    print(f"Error parsing JSON: {e}")
-                                    continue
-            
-            return jsonify({
-                'error': f'No processed report found for {report_identifier}',
-                'searched_filename': base_filename
-            }), 404
-            
-        else:
-            # Handle report type request (existing functionality)
-            reports_path = os.path.join('extracted_reports', report_identifier)
-            
-            if not os.path.exists(reports_path):
-                return jsonify({'error': 'Report type not found'}), 404
-            
-            reports = []
-            for filename in os.listdir(reports_path):
-                if filename.endswith('.json'):
-                    with open(os.path.join(reports_path, filename), 'r') as f:
-                        try:
-                            report_data = json.loads(f.read())
-                            structured_report = {
-                                'filename': filename,
-                                'test_type': report_data.get('test', ''),
-                                'hospital_info': {
-                                    'name': report_data.get('hospital_lab_name', ''),
-                                    'location': report_data.get('hospital_lab_location', '')
-                                },
-                                'patient_name': report_data.get('Patient Name', ''),
-                                'parameters': {}
-                            }
-                            
-                            if 'parameters' in report_data:
-                                for param in report_data['parameters']:
-                                    category = param['parameter']
-                                    if category not in structured_report['parameters']:
-                                        structured_report['parameters'][category] = []
-                                    
-                                    param_data = {
-                                        'sub_parameter': param.get('sub_parameter', ''),
-                                        'value': param.get('value', ''),
-                                        'units': param.get('units', '')
-                                    }
-                                    structured_report['parameters'][category].append(param_data)
-                            
-                            reports.append(structured_report)
-                            
-                        except json.JSONDecodeError:
-                            continue
-            
-            return jsonify({
-                'total_reports': len(reports),
-                'report_type': report_identifier,
-                'reports': reports
-            }), 200
-            
-    except Exception as e:
-        print(f"Error in get_report: {e}")
-        return jsonify({'error': str(e)}), 500
-
-@app.route('/available-reports', methods=['GET'])
-def list_available_reports():
-    try:
-        available_reports = []
-        for report_type in os.listdir('extracted_reports'):
-            report_type_path = os.path.join('extracted_reports', report_type)
-            if os.path.isdir(report_type_path):
-                for filename in os.listdir(report_type_path):
-                    if filename.endswith('.json'):
-                        available_reports.append({
-                            'report_type': report_type,
-                            'filename': filename
-                        })
+                # Save to database
+                db_id = save_to_database(
+                    filename=filename,
+                    processed_data=result_data,
+                    report_type=report_type,
+                    patient_name=patient_name
+                )
+                
+                if db_id:
+                    # Return only report_id, message, and filename
+                    return jsonify({
+                        'report_id': db_id,
+                        'message': 'File uploaded and processed successfully',
+                        'filename': filename
+                    }), 200
+                else:
+                    return jsonify({
+                        'error': 'Failed to save to database',
+                        'filename': filename
+                    }), 500
+                
+            except Exception as e:
+                return jsonify({
+                    'error': f'Error processing file: {str(e)}',
+                    'filename': filename
+                }), 500
         
         return jsonify({
-            'total_reports': len(available_reports),
-            'reports': available_reports
+            'error': 'Failed to process file',
+            'filename': filename
+        }), 500
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/report/<int:report_id>', methods=['GET'])
+def get_report_by_id(report_id):
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        
+        cur.execute("""
+            SELECT filename, processed_data, created_at, report_type, patient_name 
+            FROM report_results 
+            WHERE id = %s
+        """, (report_id,))
+        
+        result = cur.fetchone()
+        
+        cur.close()
+        conn.close()
+        
+        if result:
+            processed_data = result[1]  # This is the JSONB data from the database
+            
+            # Structure the response
+            report_data = {
+                'report_type': result[3],
+                'patient_name': result[4],
+                'hospital_info': {
+                    'name': processed_data.get('hospital_lab_name', ''),
+                    'location': processed_data.get('hospital_lab_location', '')
+                },
+                'parameters': processed_data.get('parameters', {})
+            }
+            
+            return jsonify(report_data), 200
+        
+        return jsonify({'error': 'Report not found'}), 404
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/reports', methods=['GET'])
+def list_reports():
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        
+        # Add pagination parameters
+        page = request.args.get('page', 1, type=int)
+        per_page = request.args.get('per_page', 10, type=int)
+        offset = (page - 1) * per_page
+        
+        # Get total count
+        cur.execute("SELECT COUNT(*) FROM report_results")
+        total_reports = cur.fetchone()[0]
+        
+        # Get paginated results with basic information
+        cur.execute("""
+            SELECT id, filename, report_type, patient_name, created_at 
+            FROM report_results 
+            ORDER BY created_at DESC 
+            LIMIT %s OFFSET %s
+        """, (per_page, offset))
+        
+        reports = []
+        for row in cur.fetchall():
+            reports.append({
+                'report_id': row[0],
+                'filename': row[1],
+                'report_type': row[2],
+                'patient_name': row[3],
+                'created_at': row[4].isoformat()
+            })
+        
+        cur.close()
+        conn.close()
+        
+        return jsonify({
+            'total_reports': total_reports,
+            'page': page,
+            'per_page': per_page,
+            'reports': reports
         }), 200
         
     except Exception as e:
